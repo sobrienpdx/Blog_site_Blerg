@@ -37,7 +37,6 @@ def visit_blerg(request, title):
 
 
 def confirm_commenter(user):
-	print(user.groups.filter(name='Commenters').exists())
 	return user.groups.filter(name='Commenters').exists()
 
 
@@ -51,3 +50,20 @@ def comment(request, pk):
 		print(title)
 		return redirect('blerg_app:visit_blerg', title=title)
 		return HttpResponse(f'you called the comment function for {new_comment}')
+
+
+@user_passes_test(confirm_commenter)
+def delete_comment(request, pk):
+	if request.method == 'GET':
+		comment = get_object_or_404(Comment, pk=pk)
+		Comment.objects.get(pk=pk).delete()
+		title = comment.blogpost.title
+		return redirect('blerg_app:visit_blerg', title=title)
+		return HttpResponse(f'deleted!')
+
+
+@user_passes_test(confirm_commenter)
+def edit_comment(request, pk):
+	if request.method == 'GET':
+		Comment.objects.get(pk=pk).delete()
+		return HttpResponse(f' also deleted even though you wanted to edit it!')

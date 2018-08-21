@@ -2,12 +2,24 @@
 
 {% block content %}
 <h1> Welcome to the blerg </h1>
-{{title_to_view.title}}
-{{title_to_view.body}}
-{{title_to_view.user}}
-{{title_to_view.timestamp}}
+{{title_to_view.title}}</br>
+By: {{title_to_view.user}}</br>
+Posted: {{title_to_view.timestamp}}</br>
+{{title_to_view.body}}</br>
+
 {% for comment in comments%}
-comment: {{comment.body}}
+comment: {{comment.body}} </br>
+posted by: {{comment.user}}</br>
+	{% if user.is_authenticated %}
+		{% if comment.user.username == request.user.username %}
+		<form action="{% url 'blerg_app:edit_comment' pk=comment.pk %}" method="get">
+			<button type="submit" name="edit">Edit</button>
+		</form>
+		<form action="{% url 'blerg_app:delete_comment' pk=comment.pk %}" method="get">
+			<button type="submit" name="delete">Delete</button>
+		</form>
+		{% endif %}
+	{% endif %}
 {%endfor%}
 
 {% if user.is_authenticated %}
