@@ -17,6 +17,7 @@
 	{% endblock %}
 	{% block extrastyles %}{% endblock %}
 </head>
+
 <body>
 	{% block nav %}
 	<nav>
@@ -37,9 +38,11 @@
 	{% endblock %}
 
 
-    {% block sidebar %}{% endblock %}
 
+    {% block sidebar %}{% endblock %}
+<div class="content">
 {% block content %}{% endblock %}
+</div>
 
 </body>
 </html>

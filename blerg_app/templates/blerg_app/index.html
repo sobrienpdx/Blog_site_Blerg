@@ -10,7 +10,7 @@
 
 
 {% for post in blog_list %}
-		<div>
+		<div class='title'>
 			<h3><a href="{% url 'blerg_app:visit_blerg' post.title %}">Title: {{post.title}}</a></h3>
 			<p>Author: {{post.user}}</p>
 			<p>Date: {{post.timestamp}}

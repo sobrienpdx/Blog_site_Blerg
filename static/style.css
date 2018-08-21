@@ -1,5 +1,5 @@
 body {
-	background-color: lightblue;
+	background-color: #ceeef9;
 	color: darkblue;
 }
 
@@ -9,4 +9,44 @@ body {
 
 .hidden {
 	display: none;
+}
+
+.title {
+	border: 1px solid darkblue;
+	background-color: #a0d4e4;
+	padding: 1em;
+	margin: 1em;
+}
+
+nav {
+	/* padding: 1em; */
+	margin: 1em;
+}
+
+.center {
+	text-align: center;
+	text-decoration: underline;
+}
+.content {
+	/* padding: 1em; */
+	margin: 1em;
+}
+
+#body {
+	margin: 0;
+	background-color: #daf0f7;
+}
+
+#new_title {
+	width: 80%;
+	height: 3em;
+}
+#new_body {
+	width: 99%;
+	height: 99%;
+}
+
+#new_body_p {
+	width: 99%;
+	height: 80vh;
 }
