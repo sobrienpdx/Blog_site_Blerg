@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1> Welcome to the blerg </h1>
+
+<form action="{%url 'blerg_app:search_blerg' %}" method="get">
+	<input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+	<button id="search_submit" type="submit" >Submit</button>
+</form>
+
+
+{% for post in blog_list %}
+		<div>
+			<h3><a href="{% url 'blerg_app:visit_blerg' post.title %}">Title: {{post.title}}</a></h3>
+			<p>Author: {{post.user}}</p>
+			<p>Date: {{post.timestamp}}
+		</div>
+{% endfor %}
+
+
+{% endblock %}

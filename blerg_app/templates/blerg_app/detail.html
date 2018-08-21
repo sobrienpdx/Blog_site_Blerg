@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1> Welcome to the blerg </h1>
+{{title_to_view.title}}
+{{title_to_view.body}}
+{{title_to_view.user}}
+{{title_to_view.timestamp}}
+{% for comment in comments%}
+comment: {{comment.body}}
+{%endfor%}
+
+{% if user.is_authenticated %}
+		<form action="{% url 'blerg_app:comment' pk=title_to_view.pk %}" method="post">
+			{% csrf_token%}
+			Add comment:
+				<textarea name="new_comment" placeholder="Comment..."></textarea>
+				<button type="submit">Submit</button>
+		</form>
+{% else %}
+		<a href="{% url 'login' %}">Login to comment</a></br>
+{% endif %}
+
+{% endblock %}
