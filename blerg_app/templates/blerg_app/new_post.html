@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1> Welcome to the blerg </h1>
+<h2>{{title_to_view.title}}</h2>
+<h3>By: {{title_to_view.user}}</h3>
+<h3>Posted: {{title_to_view.timestamp}}</h3>
+<p class="border">{{title_to_view.body}}</p>
+
+
+
+
+
+<script src={%static 'blerg_app/script.js' %}> </script>
+
+{% endblock %}

@@ -16,7 +16,7 @@ posted by: {{comment.user}}</br>
 		{% if comment.user.username == request.user.username %}
 		<form action="{% url 'blerg_app:edit_comment' pk=comment.pk %}" method="post">
 			{% csrf_token%}
-			<button id="edit_comment" name="edit">Edit</button>
+			<button id="edit_comment" type="button" name="edit">Edit</button>
 			<textarea id="text_to_change" name="text_to_change" class="hidden">{{comment.body}}</textarea>
 			<button id="submit_change" class="hidden"  type="submit" name="edit">Update comment</button>
 		</form>

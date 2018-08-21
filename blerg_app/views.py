@@ -69,4 +69,15 @@ def edit_comment(request, pk):
 		comment = get_object_or_404(Comment, pk=pk)
 		comment.body= updated_comment
 		comment.save()
-		return HttpResponse(f'see if that worked... new comment is {updated_comment}!')
+		title = comment.blogpost.title
+		# return HttpResponse(f'see if that worked... new comment is {updated_comment}!')
+		return redirect('blerg_app:visit_blerg', title=title)
+
+
+def confirm_poster(user):
+	return user.groups.filter(name='Posters').exists()
+
+
+@user_passes_test(confirm_poster)
+def create_new_post(request):
+	return HttpResponse(f'go to new post page')
