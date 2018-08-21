@@ -6,6 +6,7 @@ from datetime import timedelta
 from django.contrib.auth.decorators import user_passes_test
 
 
+
 def index(request):
 	blog_list = BlogPost.objects.all()
 	context = {'blog_list': blog_list}

@@ -11,6 +11,7 @@
 
 
   {% load static %}
+	{%  load check_group %}
   {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="{%static 'style.css' %}"/>
 	{% endblock %}
@@ -23,7 +24,9 @@
 		<ul class="sidebar-nav">
 			<a href="{% url 'blerg_app:index' %}">Home</a></br>
 			{% if user.is_authenticated %}
-				<a href="{% url 'blerg_app:index' %}">something</a></br>
+				{% if user|in_Posters_group %}
+				<a href="{% url 'blerg_app:index' %}">Create Post</a></br>
+				{% endif %}
 				<a href="{% url 'logout' %}">Logout</a></br>
 			{% else %}
 				<a href="{% url 'register' %}">Register</a></br>
