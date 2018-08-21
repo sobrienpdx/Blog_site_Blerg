@@ -64,6 +64,9 @@ def delete_comment(request, pk):
 
 @user_passes_test(confirm_commenter)
 def edit_comment(request, pk):
-	if request.method == 'GET':
-		Comment.objects.get(pk=pk).delete()
-		return HttpResponse(f' also deleted even though you wanted to edit it!')
+	if request.method == 'POST':
+		updated_comment = request.POST['text_to_change']
+		comment = get_object_or_404(Comment, pk=pk)
+		comment.body= updated_comment
+		comment.save()
+		return HttpResponse(f'see if that worked... new comment is {updated_comment}!')

@@ -1,0 +1,12 @@
+body {
+	background-color: lightblue;
+	color: darkblue;
+}
+
+.border {
+	border: 1px solid darkblue;
+}
+
+/* .hidden {
+	display: none;
+} */

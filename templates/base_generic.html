@@ -11,6 +11,10 @@
 
 
   {% load static %}
+  {% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{%static 'style.css' %}"/>
+	{% endblock %}
+	{% block extrastyles %}{% endblock %}
 </head>
 <body>
 	{% block nav %}

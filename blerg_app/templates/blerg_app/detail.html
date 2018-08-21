@@ -1,20 +1,26 @@
 {% extends "base_generic.html" %}
 
+{% load static %}
+
 {% block content %}
 <h1> Welcome to the blerg </h1>
-{{title_to_view.title}}</br>
-By: {{title_to_view.user}}</br>
-Posted: {{title_to_view.timestamp}}</br>
-{{title_to_view.body}}</br>
+<h2>{{title_to_view.title}}</h2>
+<h3>By: {{title_to_view.user}}</h3>
+<h3>Posted: {{title_to_view.timestamp}}</h3>
+<p class="border">{{title_to_view.body}}</p>
 
 {% for comment in comments%}
 comment: {{comment.body}} </br>
 posted by: {{comment.user}}</br>
 	{% if user.is_authenticated %}
 		{% if comment.user.username == request.user.username %}
-		<form action="{% url 'blerg_app:edit_comment' pk=comment.pk %}" method="get">
-			<button type="submit" name="edit">Edit</button>
+		<form action="{% url 'blerg_app:edit_comment' pk=comment.pk %}" method="post">
+			{% csrf_token%}
+			<button id="edit_comment" name="edit">Edit</button>
+			<textarea id="text_to_change" name="text_to_change" class="hidden">{{comment.body}}</textarea>
+			<button id="submit_change" class="hidden"  type="submit" name="edit">Update comment</button>
 		</form>
+
 		<form action="{% url 'blerg_app:delete_comment' pk=comment.pk %}" method="get">
 			<button type="submit" name="delete">Delete</button>
 		</form>
@@ -32,5 +38,7 @@ posted by: {{comment.user}}</br>
 {% else %}
 		<a href="{% url 'login' %}">Login to comment</a></br>
 {% endif %}
+
+<script src={%static 'blerg_app/script.js' %}> </script>
 
 {% endblock %}
