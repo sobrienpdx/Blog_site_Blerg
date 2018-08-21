@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import BlogPost, Comment
 from datetime import datetime
-from datetime import timedelta
 from django.contrib.auth.decorators import user_passes_test
 
 
@@ -80,5 +79,19 @@ def confirm_poster(user):
 
 
 @user_passes_test(confirm_poster)
-def create_new_post(request):
+def new_post(request):
+	user = request.user
+	timestamp = datetime.now()
+	context = {"user": user, "timestamp": timestamp}
+	return render(request, 'blerg_app/new_post.html', context)
 	return HttpResponse(f'go to new post page')
+
+
+def save_post(request):
+	print("save_post")
+	if request.method == 'POST':
+		body = request.POST['body']
+		title = request.POST['title']
+		new = BlogPost(body=body, user=request.user, title=title).save()
+		print(new)
+		return redirect('blerg_app:visit_blerg', title=title)
