@@ -1,5 +1,6 @@
 body {
-	background-color: #ceeef9;
+	background-color: #bce5f3;
+	background-image: url('clouds.png');
 	color: darkblue;
 }
 
@@ -13,7 +14,7 @@ body {
 
 .title {
 	border: 1px solid darkblue;
-	background-color: #a0d4e4;
+	background-color: rgba(163, 206, 234, 0.5);
 	padding: 1em;
 	margin: 1em;
 }
@@ -34,7 +35,7 @@ nav {
 
 #body {
 	margin: 0;
-	background-color: #daf0f7;
+	background-color: rgba(247, 247, 247, 0.6);
 	border: 1px solid darkblue;
 	padding: .5em;
 	margin: 1em;
@@ -58,7 +59,7 @@ nav {
 
 .comment {
 	border: 1px solid darkblue;
-	background-color: #a0d4e4;
+	background-color: rgba(163, 206, 234, 0.5);
 	padding: 1em;
 	margin: 1em;
 }
