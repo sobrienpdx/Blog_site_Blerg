@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% load static %}
+{%  load check_group %}
 
 {% block content %}
 <h1> Welcome to the blerg </h1>
@@ -8,14 +9,27 @@
 	<h2 class="center">{{title_to_view.title}}</h2>
 	<p>By: {{title_to_view.user}}</p>
 	<p>Posted: {{title_to_view.timestamp}}</p>
-	<p class="title" id="body">{{title_to_view.body}}</p>
+	<p id="body">{{title_to_view.body}}</p>
 </div>
 
+whee!! {{title_to_view.pk}}
+
+{% if user.is_authenticated %}
+	{% if user|in_Posters_group %}
+	<form action="{% url 'blerg_app:edit_post' pk=title_to_view.pk %}" method="get">
+		<button name="edit">Edit</button>
+	</form>
+	<form action="{% url 'blerg_app:delete_post' pk=title_to_view.pk %}" method="post">
+		{% csrf_token%}
+		<button name="edit">Delete</button>
+	</form>
+	{%  endif  %}
+{%  endif  %}
 
 
 {% for comment in comments%}
-<div class="title">
-	comment: {{comment.body}} </br>
+<div class="comment">
+	<p id="body"> {{comment.body}} </p></br>
 	posted by: {{comment.user}}</br>
 		{% if user.is_authenticated %}
 			{% if comment.user.username == request.user.username %}
@@ -23,16 +37,17 @@
 				{% csrf_token%}
 				<button id="edit_comment" type="button" name="edit">Edit</button>
 				<textarea id="text_to_change" name="text_to_change" class="hidden">{{comment.body}}</textarea>
-				<button id="submit_change" class="hidden"  type="submit" name="edit">Update comment</button>
+				<button id="submit_changed_comment" class="hidden"  type="submit" name="edit_comment">Update comment</button>
 			</form>
 
 			<form action="{% url 'blerg_app:delete_comment' pk=comment.pk %}" method="get">
 				<button type="submit" name="delete">Delete</button>
 			</form>
 			{% endif %}
+</div>
 		{% endif %}
 	{%endfor%}
-</div>
+
 
 {% if user.is_authenticated %}
 		<form action="{% url 'blerg_app:comment' pk=title_to_view.pk %}" method="post">

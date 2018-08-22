@@ -35,6 +35,11 @@ nav {
 #body {
 	margin: 0;
 	background-color: #daf0f7;
+	border: 1px solid darkblue;
+	padding: .5em;
+	margin: 1em;
+	margin-left: .5em;
+	margin-right: .5em;
 }
 
 #new_title {
@@ -49,4 +54,11 @@ nav {
 #new_body_p {
 	width: 99%;
 	height: 80vh;
+}
+
+.comment {
+	border: 1px solid darkblue;
+	background-color: #a0d4e4;
+	padding: 1em;
+	margin: 1em;
 }

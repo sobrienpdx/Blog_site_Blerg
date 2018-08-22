@@ -82,12 +82,14 @@ def confirm_poster(user):
 def new_post(request):
 	user = request.user
 	timestamp = datetime.now()
-	context = {"user": user, "timestamp": timestamp}
+	title = ''
+	body = ''
+	context = {"user": user, "timestamp": timestamp, 'title': title, 'body': body, 'button': 'Create Post', 'url': 'blerg_app:save_post', 'pk': 0}
 	return render(request, 'blerg_app/new_post.html', context)
 	return HttpResponse(f'go to new post page')
 
 
-def save_post(request):
+def save_post(request, pk):
 	print("save_post")
 	if request.method == 'POST':
 		body = request.POST['body']
@@ -95,3 +97,34 @@ def save_post(request):
 		new = BlogPost(body=body, user=request.user, title=title).save()
 		print(new)
 		return redirect('blerg_app:visit_blerg', title=title)
+
+
+@user_passes_test(confirm_poster)
+def edit_post(request, pk):
+	user = request.user
+	post = get_object_or_404(BlogPost, pk=pk)
+	title = post.title
+	body = post.body
+	context = {"user": user, 'title': title, 'body': body, 'button': 'Save', 'url': 'blerg_app:save_updated_post', 'pk':pk}
+	return render(request, 'blerg_app/new_post.html', context)
+	return HttpResponse(f'go edit your shit')
+	return HttpResponse(f'see if that worked... new comment is {updated_comment}!')
+	# return redirect('blerg_app:visit_blerg', title=title)
+
+
+def save_updated_post(request, pk):
+	if request.method == 'POST':
+		post = get_object_or_404(BlogPost, pk=pk)
+		post.body = request.POST['body']
+		post.title = request.POST['title']
+		post.save()
+	return redirect('blerg_app:visit_blerg', title=post.title)
+	return HttpResponse(f'save')
+
+
+@user_passes_test(confirm_poster)
+def delete_post(request, pk):
+	if request.method == 'POST':
+		BlogPost.objects.get(pk=pk).delete()
+	return redirect('blerg_app:index')
+	return HttpResponse(f'save')

@@ -4,16 +4,14 @@
 
 {% block content %}
 <h1> Welcome to the blerg </h1>
-<form action="{% url 'blerg_app:save_post' %}" method="post">
+<form action="{% url url pk=pk %}" method="post">
 	{% csrf_token%}
-<h2><input name="title" id="new_title" placeholder="Title..."></input></h2>
+<h2><input name="title" id="new_title" placeholder="Title..." value={{title}}></input></h2>
 <h3>By: {{user.username}}</h3>
 <!-- <h3>Posted: {{timestamp}}</h3> -->
-<p class="border" id='new_body_p'><textarea name="body" id="new_body" placeholder="Blog post..."></textarea></p>
-<button>Create Post</button>
+<p class="border" id='new_body_p'><textarea name="body" id="new_body" placeholder="Blog post...">{{body}}</textarea></p>
+<button>{{button}}</button>
 </form>
-
-
 
 
 <script src={%static 'blerg_app/script.js' %}> </script>
